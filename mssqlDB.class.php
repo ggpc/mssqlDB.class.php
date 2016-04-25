@@ -68,7 +68,6 @@ class MssqlDB{
             throw new Exception('Can not select database');
         }
         $this -> db_conn = $conn;
-        //$this -> query('SET NAMES \''.$this -> codepage.'\'');
     }
     function close(){
         mssql_close($this -> db_conn);
@@ -90,13 +89,6 @@ class MssqlDB{
     }
     function fetch_array($query_id){
         $result = mssql_fetch_assoc($query_id);
-        /*try{
-            $result = mssql_fetch_assoc($query_id);
-        }catch(Exception $e){
-            $error = $e -> getMessage();
-            $error .= ', '.mssql_get_last_message();
-            throw new Exception('Database error: '.$error);
-        }*/
         return $result;
     }
     function item($str, $key = null){
@@ -159,7 +151,6 @@ class MssqlDB{
         $id_fieldname = $this -> id_fieldname;
         while($t = $this -> fetch_array($qid)){
 
-            //$link_key = (isset($t[$root_fieldname]) && $t[$root_fieldname] == 1)?0:$t[$id_fieldname];
             $link_key = $t[$id_fieldname];
             if(!isset($result[$link_key])){
                 // create node
